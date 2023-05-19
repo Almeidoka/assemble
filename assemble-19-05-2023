@@ -1,0 +1,49 @@
+.data
+#criação de variavel
+idade: .word 19
+eh_maior: .word 0
+
+
+v_de_bytes: .byte 6 10 33 2
+# para criação de vetores insira os valores separados por espaços a frente do .word
+#para identificar os valor no vetor ira ser 0 vetor mais o endereço*4 pois cada valor ocupa 4 bites
+vetor: .word 30 1 2 3 4 5 6 7 8 9 153
+
+newline: .asciiz "\n"
+
+#variaveis para impressão
+#toda string armazenda em memória termina em 0 para o conputar assimilar qual é o final da string 
+strmaior: .asciiz "eh maior de idade"
+strmenor: .asciiz "eh menor de idade"
+
+
+.text
+	#lw salvando variavel dentro do registrador $a0
+	lw $a0, idade
+	
+	#btl identifica se $a0 é menor que o numero informado
+	blt $a0, 18, menor
+	
+maior:
+	li $t0, 1
+	#sw salvando o valor de t0 na memória na variavel criana no .data
+	sw $t0, eh_maior
+	
+	li $v0, 4
+	la $a0, strmaior
+	syscall
+	b fim
+menor:
+	li $t0, 2
+	#salvando o valor de t0 na memória na variavel criana no .data
+	sw $t0, eh_maior
+	li $v0, 4
+	la $a0, strmenor
+	syscall
+fim:
+	
+	#calculo basico de soma a baixo de 10+20
+	#li $v0, 10
+	#li $v1, 20
+	#add $a0, $v0, $v1
+	
